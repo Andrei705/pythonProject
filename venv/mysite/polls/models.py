@@ -7,10 +7,16 @@ class Survey(models.Model):
     stop_date = models.DateTimeField('Дата окончания')
     description = models.TextField('Описание')
 
+
+    def __str__(self):
+        return self.name
+
+
 class Question(models.Model):
     survey = models.ForeignKey(Survey, on_delete= models.CASCADE)
     text_question = models.TextField('Текст вопроса')
     type_question = models.TextField('Тип вопроса', help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)")
+
 
     def __str__(self):
         return  self.title
