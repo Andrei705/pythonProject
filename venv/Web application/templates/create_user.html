@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание пользователя</title>
+</head>
+<body>
+     <form method="post">
+       <input type="email" name="user_email" placeholder="Введите Email">
+         {%if type="email" and name="user_email" %}
+         <p>USer</p>
+         {%%endif}
+       <input type="number" name="phone" placeholder="Введите Номер телефона">
+       <input type="date" name="user_date" placeholder="Введите Дату">
+       <input type="text" name="Text" placeholder="Введите текст">
+       <input type="submit">
+</body>
+</html>
