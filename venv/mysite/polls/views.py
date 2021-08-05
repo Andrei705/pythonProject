@@ -1,8 +1,12 @@
-from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .serializers import ObjectSerializer
 from .models import Object_folder
 
-class ObjectViewSet(viewsets.ModelViewSet):
-    queryset = Object_folder.objects.all().order_by('name')
-    serializer_class = ObjectSerializer
+class ObjectListView(APIView):
+
+    def get(self,request):
+        object = Object_folder.objects.filter()
+        serializer = ObjectSerializer(object, many=True)
+        return Response(serializer.data)
