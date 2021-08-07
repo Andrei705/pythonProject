@@ -22,6 +22,3 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/', include('polls.urls')),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(setting.POLLS_URL, documen_root=settings_POLLS_ROOT)
