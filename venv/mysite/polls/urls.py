@@ -1,9 +1,12 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from . import views
 
 
 
 urlpatterns = [
-    re_path(r'^object/id=0|$', views.ObjectListView.as_view())
+
+     path(r'object/<int:id>/', views.ObjectListView.as_view()),
+     path(r'object/', views.ObjectListView.as_view()),
+
     ]

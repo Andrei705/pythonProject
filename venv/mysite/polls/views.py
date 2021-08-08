@@ -6,7 +6,7 @@ from .models import Object_folder
 
 class ObjectListView(APIView):
 
-    def get(self,request):
+    def get(self,request, id=1):
         object = Object_folder.objects.filter()
         serializer = ObjectSerializer(object, many=True)
         return Response(serializer.data)
