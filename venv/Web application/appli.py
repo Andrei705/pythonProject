@@ -11,9 +11,14 @@ app.config['SQLALCHEMY_TRACK_MODIFYCATIONS']= False
 db.init_app(app)
 migrate = Migrate(db, app)
 
+@app.route('/object/id=0')
+@app.route('/object')
+def route():
+    date = Type.query.all()
+    return render_template('output_bd.html', date=date)
 
 
-@app.route('/')
+@app.route('/form')
 def form():
     return render_template('form.html')
 
