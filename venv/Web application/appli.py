@@ -14,15 +14,17 @@ migrate = Migrate(db, app)
 
 @app.route('/object/', methods=['GET'])
 def route():
-    id = request.args.get('id')
+    id = request.args.get('id', type=int)
+    emperty = request.args.get('id', type=string)
     date = Type.query.all()
-    print(type(id))
-    if id == str(0) or id == '':
+    if id==0 or emperty=='':
        return render_template('output_bd.html', date=date)
+
 
 @app.route('/form')
 def form():
     return render_template('form.html')
+
 
 @app.route('/completion', methods =['POST'])
 def completion():
