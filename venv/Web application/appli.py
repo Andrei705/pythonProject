@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from flask_migrate import Migrate
 from models import db, Type
 
@@ -11,18 +11,20 @@ app.config['SQLALCHEMY_TRACK_MODIFYCATIONS']= False
 db.init_app(app)
 migrate = Migrate(db, app)
 
-@app.route('/object/id=0')
-@app.route('/object')
-def route():
-    date = Type.query.all()
-    return render_template('output_bd.html', date=date)
 
+@app.route('/object/', methods=['GET'])
+def route():
+    id = request.args.get('id')
+    date = Type.query.all()
+    print(type(id))
+    if id == str(0) or id == '':
+       return render_template('output_bd.html', date=date)
 
 @app.route('/form')
 def form():
     return render_template('form.html')
 
-@app.route('/completion', methods =['POST', 'GET'])
+@app.route('/completion', methods =['POST'])
 def completion():
     if request.method == "POST":
         folder = request.form['folder']
