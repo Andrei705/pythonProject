@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, abort
 from flask_migrate import Migrate
 from models import db, Type
 
@@ -14,11 +14,17 @@ migrate = Migrate(db, app)
 
 @app.route('/object/', methods=['GET'])
 def route():
-    id = request.args.get('id', type=int)
-    emperty = request.args.get('id', type=string)
+    id = request.args.get('id', type=int)                 #в браузере вводить /object/?id= , 0
     date = Type.query.all()
-    if id==0 or emperty=='':
+    if id==0 or request.args.get('id')=='':
        return render_template('output_bd.html', date=date)
+    elif id != int:
+       abort(400)
+
+
+@app.errorhandler(400)
+def error_400(erors):
+    return render_template('400.html'), 400
 
 
 @app.route('/form')
