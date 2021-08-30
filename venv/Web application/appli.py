@@ -12,18 +12,29 @@ app.config['SQLALCHEMY_TRACK_MODIFYCATIONS']= False
 db.init_app(app)
 migrate = Migrate(db, app)
 
-
-@app.route('/object/', methods=['GET'])
-def route():
-    id = request.args.get('id', type=int)       #в браузере вводить /object/?id= , 0
-    print(type(id))
+@app.route('/object/', defaults={'id':''})
+@app.route('/object/<int:id>/')
+def show_db(id):
+    print()
     date = Type.query.all()
-    if id==0 or request.args.get('id')=='':
-       return render_template('output_bd.html', date=date)
-    elif id == None:
-        abort(400, 'Id задан неверно')
+    if id == 0 or id =='':
+        return render_template('output_bd.html', date=date)
+    elif request.path != int:
+        abort(400)
 
 
+
+
+# @app.route('/object/')
+# def route():
+#     id = request.args.get('id',default='integer', type=int)           #в браузере вводить /object/?id= , 0
+#     epleyd = request.args.get('id',default='string', type=str)
+#     print(type(id))
+#     date = Type.query.all()
+#     if id == 0 or epleyd == '':
+#        return render_template('output_bd.html', date=date)
+#     elif id != int:
+#          abort(400, "Id задан неверно")
 
 @app.route('/form')
 def form():
