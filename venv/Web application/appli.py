@@ -1,10 +1,11 @@
+import werkzeug.exceptions
 from flask import Flask, render_template, request, abort
 from flask_migrate import Migrate
 from models import db, Type
-
+from werkzeug.exceptions import BadRequest
 
 app = Flask(__name__)
-app.debug =True
+app.debug =False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:123456@localhost:5432/object_db"
 app.config['SQLALCHEMY_TRACK_MODIFYCATIONS']= False
 
@@ -14,17 +15,14 @@ migrate = Migrate(db, app)
 
 @app.route('/object/', methods=['GET'])
 def route():
-    id = request.args.get('id', type=int)                 #в браузере вводить /object/?id= , 0
+    id = request.args.get('id', type=int)       #в браузере вводить /object/?id= , 0
+    print(type(id))
     date = Type.query.all()
     if id==0 or request.args.get('id')=='':
        return render_template('output_bd.html', date=date)
-    elif id != int:
-       abort(400)
+    elif id == None:
+        abort(400, 'Id задан неверно')
 
-
-@app.errorhandler(400)
-def error_400(erors):
-    return render_template('400.html'), 400
 
 
 @app.route('/form')
