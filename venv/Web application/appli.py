@@ -18,9 +18,9 @@ migrate = Migrate(db, app)
 def show_db(id):
     print(id)
     date = Type.query.all()
-    if id == 0 or id =='':
+    if id in [0,'']:
         return render_template('output_bd.html', date=date)
-    elif id != int or id == str:
+    elif id != int:
         abort(400, "Id задана не правельно")
 
 
