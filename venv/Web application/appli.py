@@ -14,14 +14,14 @@ migrate = Migrate(db, app)
 
 @app.route('/object/', defaults={'id':''})
 @app.route('/object/<int:id>/')
+@app.route('/object/<string:id>/')
 def show_db(id):
-    print()
+    print(id)
     date = Type.query.all()
     if id == 0 or id =='':
         return render_template('output_bd.html', date=date)
-    elif request.path != int:
-        abort(400)
-
+    elif id != int or id == str:
+        abort(400, "Id задана не правельно")
 
 
 
