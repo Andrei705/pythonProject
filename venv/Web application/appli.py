@@ -1,8 +1,6 @@
-import werkzeug.exceptions
 from flask import Flask, render_template, request, abort
 from flask_migrate import Migrate
 from models import db, Type
-from werkzeug.exceptions import BadRequest
 
 app = Flask(__name__)
 app.debug =False
@@ -23,18 +21,6 @@ def show_db(id):
     elif id != int:
         abort(400, "Id задана не правельно")
 
-
-
-# @app.route('/object/')
-# def route():
-#     id = request.args.get('id',default='integer', type=int)           #в браузере вводить /object/?id= , 0
-#     epleyd = request.args.get('id',default='string', type=str)
-#     print(type(id))
-#     date = Type.query.all()
-#     if id == 0 or epleyd == '':
-#        return render_template('output_bd.html', date=date)
-#     elif id != int:
-#          abort(400, "Id задан неверно")
 
 @app.route('/form')
 def form():
