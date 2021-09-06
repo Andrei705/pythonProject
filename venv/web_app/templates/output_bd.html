@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Base</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %} Base {% endblock %}
+{% block body%}
      {% for i in date %}
         <dt>  {{i.id}} </dt>
      <ul>
@@ -13,5 +10,4 @@
      <li>{{i.type_two}}</li>>
      </ul>
      {% endfor %}
-</body>
-</html>
+{% endblock %}
