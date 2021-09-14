@@ -2,12 +2,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from string import whitespace
+
 login = LoginManager()
 db = SQLAlchemy()
-
 class Type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    folder = db.Column(db.String(100), nullable=False)
+    folder = db.Column(db.String(100), db.CheckConstraint('folder != " "'), nullable=False)
     type_one = db.Column(db.String(100), nullable=False)
     type_two = db.Column(db.String(100), nullable=False)
 
@@ -18,7 +19,6 @@ class Type(db.Model):
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    user_name = db.Column(db.String(80), nullable=False)
     password_hash = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
 

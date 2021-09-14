@@ -2,13 +2,17 @@ from flask import Flask, render_template, request, abort
 from flask_migrate import Migrate
 from models import db, Type, login
 
+
 app = Flask(__name__)
 app.debug =False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:123456@localhost:5432/object_db"
 app.config['SQLALCHEMY_TRACK_MODIFYCATIONS']= False
 
-login.login_view = 'login'
+# Login
 login.init_app(app)
+login.login_view = 'login'
+
+# База данных
 db.init_app(app)
 migrate = Migrate(db, app)
 
