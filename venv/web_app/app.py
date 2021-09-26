@@ -1,27 +1,23 @@
 from flask import Flask, render_template, request, abort
 from flask_migrate import Migrate
-from models import db, Type, login
+from models import db, Type
 
 
 app = Flask(__name__)
-app.debug =False
+app.debug = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:123456@localhost:5432/object_db"
-app.config['SQLALCHEMY_TRACK_MODIFYCATIONS']= False
+app.config['SQLALCHEMY_TRACK_MODIFYCATIONS'] = False
 
-# Login
-login.init_app(app)
-login.login_view = 'login'
 
 # База данных
 db.init_app(app)
 migrate = Migrate(db, app)
 
 
-@app.route('/object/', defaults={'id':''})
+@app.route('/object/', defaults = {'id':''})
 @app.route('/object/<int:id>/')
 @app.route('/object/<string:id>/')
 def show_db(id):
-    print(id)
     date = Type.query.all()
     if id in [0,'']:
         return render_template('output_bd.html', date=date)
